@@ -1,4 +1,12 @@
+using LeaveManagementSystem.api.Model;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddDbContext<CompanyContext>(options =>
+{
+    options.UseSqlServer("Server=ZEUS\\SQLEXPRESS;Database=LeaveManagementDB;Trusted_Connection=True;TrustServerCertificate=True;");
+});
 
 // Add services to the container.
 
