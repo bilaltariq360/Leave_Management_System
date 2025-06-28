@@ -1,0 +1,11 @@
+﻿namespace LeaveManagementSystem.api.Model.DTO
+{
+    public class AddEmployeeDto
+    {
+        public string Id { set; get; }
+        public string name { set; get; }
+        public string reason { set; get; }
+        public string status { set; get; }
+        public DateTime date { set; get; }
+    }
+}

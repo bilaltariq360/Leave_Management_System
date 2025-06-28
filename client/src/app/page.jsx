@@ -7,8 +7,9 @@ import Link from "next/link";
 export default function EmployeePage() {
   const [formData, setFormData] = useState({
     name: "",
-    empId: "",
+    id: "",
     reason: "",
+    status: "pending",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [message, setMessage] = useState("");
@@ -21,7 +22,7 @@ export default function EmployeePage() {
     try {
       console.log(formData);
 
-      const response = await fetch("http://localhost:3000/api/leave-requests", {
+      const response = await fetch("http://127.0.0.1:5003/api/Employees", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -29,15 +30,14 @@ export default function EmployeePage() {
         body: JSON.stringify({
           ...formData,
           status: "pending",
-          submittedAt: new Date().toISOString(),
         }),
       });
 
       if (response.ok) {
         setMessage("Leave request submitted successfully!");
-        setFormData({ name: "", empId: "", reason: "" });
-      } else {
-        setMessage("Failed to submit leave request. Please try again.");
+        setFormData({ name: "", id: "", reason: "" });
+      } else if (response.status === 409) {
+        setMessage(`${await response.text()}`);
       }
     } catch (error) {
       setMessage("Error submitting request. Please try again.");
@@ -96,8 +96,8 @@ export default function EmployeePage() {
                 <Hash className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
                 <input
                   type="text"
-                  name="empId"
-                  value={formData.empId}
+                  name="id"
+                  value={formData.id}
                   onChange={handleChange}
                   required
                   className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 placeholder:text-gray-400"

@@ -18,13 +18,16 @@ export default function AdminPage() {
   const [activeTab, setActiveTab] = useState("pending");
 
   useEffect(() => {
-    // fetchRequests();
+    fetchRequests();
   }, []);
 
   const fetchRequests = async () => {
     try {
-      const response = await fetch("http://localhost:3000/api/admin/requests");
+      const response = await fetch("http://127.0.0.1:5003/api/Employees");
+
       const data = await response.json();
+      console.log(data);
+
       setRequests(data);
     } catch (error) {
       console.error("Error fetching requests:", error);
@@ -33,39 +36,21 @@ export default function AdminPage() {
     }
   };
 
-  const handleApprove = async (id) => {
+  const handleRequest = async (id, status) => {
     try {
-      const response = await fetch("http://localhost:3000/api/admin/approve", {
-        method: "POST",
+      const response = await fetch("http://127.0.0.1:5003/api/Employees", {
+        method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ id }),
+        body: JSON.stringify({ id: id, status: status }),
       });
 
       if (response.ok) {
         fetchRequests();
       }
     } catch (error) {
-      console.error("Error approving request:", error);
-    }
-  };
-
-  const handleReject = async (id) => {
-    try {
-      const response = await fetch("http://localhost:3000/api/admin/reject", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ id }),
-      });
-
-      if (response.ok) {
-        fetchRequests();
-      }
-    } catch (error) {
-      console.error("Error rejecting request:", error);
+      console.error("Error updating status request:", error);
     }
   };
 
@@ -105,13 +90,13 @@ export default function AdminPage() {
     rejected: requests.filter((r) => r.status === "rejected").length,
   };
 
-  // if (loading) {
-  //   return (
-  //     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-blue-50 flex items-center justify-center">
-  //       <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
-  //     </div>
-  //   );
-  // }
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-blue-50 flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-blue-50">
@@ -258,7 +243,7 @@ export default function AdminPage() {
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="text-sm text-gray-900 font-mono">
-                          {request.empId}
+                          {request.id}
                         </div>
                       </td>
                       <td className="px-6 py-4">
@@ -280,20 +265,24 @@ export default function AdminPage() {
                         </span>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        {new Date(request.submittedAt).toLocaleDateString()}
+                        {new Date(request.date).toLocaleDateString()}
                       </td>
                       {activeTab === "pending" && (
                         <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                           <div className="flex space-x-2">
                             <button
-                              onClick={() => handleApprove(request.id)}
+                              onClick={() =>
+                                handleRequest(request.id, "approved")
+                              }
                               className="bg-green-600 text-white px-3 py-1.5 rounded-lg hover:bg-green-700 transition-colors duration-200 flex items-center space-x-1"
                             >
                               <Check className="h-4 w-4" />
                               <span>Approve</span>
                             </button>
                             <button
-                              onClick={() => handleReject(request.id)}
+                              onClick={() =>
+                                handleRequest(request.id, "rejected")
+                              }
                               className="bg-red-600 text-white px-3 py-1.5 rounded-lg hover:bg-red-700 transition-colors duration-200 flex items-center space-x-1"
                             >
                               <X className="h-4 w-4" />
