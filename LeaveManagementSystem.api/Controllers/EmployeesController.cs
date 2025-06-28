@@ -75,5 +75,22 @@ namespace LeaveManagementSystem.api.Controllers
                 return Conflict("Employee " + request.Id + ' ' + request.name + " already submitted a leave request in this month.");
             }
         }
+
+        [HttpDelete]
+        [Route("{id}")]
+        public IActionResult DeleteEmployee(string id)
+        {
+            var employee = dbContext.Employees.Find(id);
+
+            if (employee == null)
+            {
+                return NotFound("Employee not found.");
+            }
+
+            dbContext.Employees.Remove(employee);
+            dbContext.SaveChanges();
+
+            return Ok("Employee deleted successfully.");
+        }
     }
 }
