@@ -1,10 +1,8 @@
-"use client";
-
+import { Link } from "react-router-dom";
 import { useState } from "react";
 import { Send, User, Calendar, Hash, MessageSquare } from "lucide-react";
-import Link from "next/link";
 
-export default function EmployeePage() {
+export default function Home() {
   const [formData, setFormData] = useState({
     name: "",
     id: "",
@@ -54,7 +52,7 @@ export default function EmployeePage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
+    <div className="min-h-screen min-w-full bg-gradient-to-br from-blue-50 via-white to-purple-50">
       {/* Navigation */}
       <nav className="bg-white shadow-sm border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -64,7 +62,7 @@ export default function EmployeePage() {
               <span className="text-xl font-bold text-gray-900">LeaveFlow</span>
             </div>
             <Link
-              href="/admin"
+              to="/admin"
               className="bg-gray-900 text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition-colors duration-200 flex items-center space-x-2"
             >
               <User className="h-4 w-4" />

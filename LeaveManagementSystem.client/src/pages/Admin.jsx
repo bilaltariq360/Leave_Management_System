@@ -1,5 +1,4 @@
-"use client";
-
+import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import {
   User,
@@ -12,7 +11,6 @@ import {
   XCircle,
   ArrowLeft,
 } from "lucide-react";
-import Link from "next/link";
 
 export default function AdminPage() {
   const [formData, setFormData] = useState({
@@ -149,7 +147,7 @@ export default function AdminPage() {
               </span>
             </div>
             <Link
-              href="/"
+              to="/"
               className="bg-gray-900 text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition-colors duration-200 flex items-center space-x-2"
             >
               <ArrowLeft className="h-4 w-4" />
