@@ -269,23 +269,26 @@ export default function AdminPage() {
             <table className="min-w-full divide-y divide-gray-200">
               <thead className="bg-gray-50">
                 <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Employee
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500  tracking-wider">
                     Employee ID
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500  tracking-wider">
+                    Employee
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500  tracking-wider">
+                    Employee Email
+                  </th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500  tracking-wider">
                     Reason
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500  tracking-wider">
                     Status
                   </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500  tracking-wider">
                     Submitted
                   </th>
                   {activeTab === "pending" && (
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500  tracking-wider">
                       Actions
                     </th>
                   )}
@@ -308,13 +311,18 @@ export default function AdminPage() {
                       className="hover:bg-gray-50 transition-colors duration-150"
                     >
                       <td className="px-6 py-4 whitespace-nowrap">
+                        <div className="text-sm text-gray-900 font-mono">
+                          {request.id}
+                        </div>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
                         <div className="text-sm font-medium text-gray-900">
                           {request.name}
                         </div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="text-sm text-gray-900 font-mono">
-                          {request.id}
+                          {request.email}
                         </div>
                       </td>
                       <td className="px-6 py-4">

@@ -40,7 +40,7 @@ namespace LeaveManagementSystem.api.Controllers
                 return NotFound($"Employee with ID {request.Id} not found.");
             }
 
-            employee.status = request.status; // Assuming your Employee model has 'Status' property
+            employee.status = request.status;
 
             dbContext.SaveChanges();
 
@@ -50,7 +50,7 @@ namespace LeaveManagementSystem.api.Controllers
         [HttpPost]
         public IActionResult AddEmployee([FromBody] AddEmployeeDto request)
         {
-            if (request == null || string.IsNullOrEmpty(request.Id) || string.IsNullOrEmpty(request.name))
+            if (request == null || string.IsNullOrEmpty(request.Id) || string.IsNullOrEmpty(request.email) || string.IsNullOrEmpty(request.name))
             {
                 return BadRequest("Invalid employee data.");
             }
@@ -58,6 +58,7 @@ namespace LeaveManagementSystem.api.Controllers
             var employeeEntity = new Employee()
             {
                 Id = request.Id,
+                email = request.email,
                 status = request.status,
                 date = DateTime.Now,
                 name = request.name,

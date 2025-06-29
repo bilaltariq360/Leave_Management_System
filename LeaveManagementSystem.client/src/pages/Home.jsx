@@ -1,11 +1,12 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import { Send, User, Calendar, Hash, MessageSquare } from "lucide-react";
+import { Send, User, Mail, Calendar, Hash, MessageSquare } from "lucide-react";
 
 export default function Home() {
   const [formData, setFormData] = useState({
     name: "",
     id: "",
+    email: "",
     reason: "",
     status: "pending",
   });
@@ -33,7 +34,7 @@ export default function Home() {
 
       if (response.ok) {
         setMessage("Leave request submitted successfully!");
-        setFormData({ name: "", id: "", reason: "" });
+        setFormData({ name: "", id: "", email: "", reason: "" });
       } else if (response.status === 409) {
         setMessage(`${await response.text()}`);
       }
@@ -99,7 +100,7 @@ export default function Home() {
                   onChange={handleChange}
                   required
                   className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 placeholder:text-gray-400"
-                  placeholder="Enter your employee ID"
+                  placeholder="Employee ID"
                 />
               </div>
             </div>
@@ -118,7 +119,26 @@ export default function Home() {
                   onChange={handleChange}
                   required
                   className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 placeholder:text-gray-400"
-                  placeholder="Enter your full name"
+                  placeholder="Full name"
+                />
+              </div>
+            </div>
+
+            {/* Email Field */}
+            <div>
+              <label className="block text-sm font-semibold text-gray-700 mb-2">
+                Email
+              </label>
+              <div className="relative">
+                <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+                <input
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 placeholder:text-gray-400"
+                  placeholder="Email"
                 />
               </div>
             </div>
