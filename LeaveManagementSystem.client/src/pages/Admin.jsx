@@ -72,14 +72,19 @@ export default function AdminPage() {
     }
   };
 
-  const handleRequest = async (id, status) => {
+  const handleRequest = async (id, status, name, email) => {
     try {
       const response = await fetch("http://127.0.0.1:5003/api/Employees", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ id: id, status: status }),
+        body: JSON.stringify({
+          id: id,
+          status: status,
+          name: name,
+          email: email,
+        }),
       });
 
       if (response.ok) {
@@ -351,7 +356,12 @@ export default function AdminPage() {
                           <div className="flex space-x-2">
                             <button
                               onClick={() =>
-                                handleRequest(request.id, "approved")
+                                handleRequest(
+                                  request.id,
+                                  "approved",
+                                  request.name,
+                                  request.email
+                                )
                               }
                               className="bg-green-600 text-white px-3 py-1.5 rounded-lg hover:bg-green-700 transition-colors duration-200 flex items-center space-x-1"
                             >
@@ -360,7 +370,12 @@ export default function AdminPage() {
                             </button>
                             <button
                               onClick={() =>
-                                handleRequest(request.id, "rejected")
+                                handleRequest(
+                                  request.id,
+                                  "rejected",
+                                  request.name,
+                                  request.email
+                                )
                               }
                               className="bg-red-600 text-white px-3 py-1.5 rounded-lg hover:bg-red-700 transition-colors duration-200 flex items-center space-x-1"
                             >
